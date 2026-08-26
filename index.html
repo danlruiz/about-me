@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daniel Lacaz Ruiz · Senior Full-Stack Software Developer</title>
+    <meta
+      name="description"
+      content="Daniel Lacaz Ruiz, senior full-stack software developer. Greenfield multi-tenant SaaS, Python / Django, Vue / Nuxt, AWS."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="alternate" hreflang="en" href="https://danlruiz.github.io/about-me/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://danlruiz.github.io/about-me/?lang=pt" />
+    <link rel="alternate" hreflang="fr" href="https://danlruiz.github.io/about-me/?lang=fr" />
+    <link rel="alternate" hreflang="x-default" href="https://danlruiz.github.io/about-me/" />
+    <style>
+      /* ══════════════════════════════════════════════════════════════════
+         Tokens
+         ══════════════════════════════════════════════════════════════ */
+      :root {
+        --color-bg: #f3f2f2;
+        --color-surface: #eae9e9;
+        --color-text: #201e1d;
+        --color-accent: #ec3013;
+        --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+        --color-neutral-100: #f8f4f4;
+        --color-neutral-800: #444141;
+
+        --color-accent-600: #dd2b0f;
+        --color-accent-700: #ae1800;
+
+        --font-heading: "Archivo", system-ui, sans-serif;
+        --font-heading-weight: 800;
+        --font-body: "Archivo", system-ui, sans-serif;
+
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --radius-md: 0px;
+
+        --leading: 28px;
+        --half: 14px;
+        --edge: clamp(20px, 5vw, 72px);
+        --measure: 58ch;
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Base
+         ══════════════════════════════════════════════════════════════ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.55;
+        font-weight: 400;
+        text-wrap: pretty;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        margin: 0 0 var(--space-2);
+      }
+      p {
+        margin: 0 0 var(--space-3);
+      }
+      a {
+        color: var(--color-accent);
+        text-underline-offset: 3px;
+      }
+      :focus {
+        outline: none;
+      }
+      :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+      }
+      ::selection {
+        background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+      }
+
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--edge);
+      }
+      .rule2 {
+        height: 2px;
+        border: 0;
+        margin: 0;
+        background: var(--color-divider);
+      }
+      .kicker {
+        display: block;
+        font-size: 13px;
+        line-height: var(--half);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-accent-700);
+        font-feature-settings: "tnum" 1;
+        margin: 0 0 calc(var(--leading) - var(--half));
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Buttons / tags
+         ══════════════════════════════════════════════════════════════ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 14px;
+        line-height: 1.2;
+        color: var(--color-text);
+        background: transparent;
+        border: 1px solid transparent;
+        padding: var(--space-2) calc(var(--space-3) * 1.2);
+        border-radius: var(--radius-md);
+      }
+      .btn-primary {
+        background: var(--color-accent);
+        color: var(--color-bg);
+      }
+      .btn-primary:hover {
+        background: var(--color-accent-600);
+      }
+      .btn-secondary {
+        border-color: var(--color-divider);
+      }
+      .btn-secondary:hover {
+        background: color-mix(in srgb, var(--color-text) 7%, transparent);
+      }
+      .btn-ghost {
+        color: var(--color-accent);
+        padding-inline: var(--space-1);
+      }
+      .btn-ghost:hover {
+        background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        padding: 3px 10px;
+        border-radius: 0;
+        background: var(--color-neutral-100);
+        color: var(--color-neutral-800);
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Nav
+         ══════════════════════════════════════════════════════════════ */
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+        padding: var(--space-3)
+          max(var(--edge), calc((100% - 1200px) / 2 + var(--edge)));
+        border-bottom: 2px solid var(--color-divider);
+      }
+      .nav-brand {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 18px;
+        margin-right: auto;
+      }
+      .nav a {
+        color: inherit;
+        text-decoration: none;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .nav a:hover,
+      .nav a[aria-current="location"] {
+        color: var(--color-accent);
+      }
+      .nav .btn-primary {
+        color: var(--color-bg);
+      }
+
+      /* — language toggle — */
+      .lang {
+        display: inline-flex;
+        border: 1px solid var(--color-divider);
+        border-radius: 0;
+        overflow: hidden;
+      }
+      .lang button {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        line-height: 1.2;
+        padding: 6px 10px;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        cursor: pointer;
+      }
+      .lang button + button {
+        border-left: 1px solid var(--color-divider);
+      }
+      .lang button:hover {
+        background: color-mix(in srgb, var(--color-text) 7%, transparent);
+        color: var(--color-text);
+      }
+      .lang button[aria-pressed="true"] {
+        background: var(--color-accent);
+        color: var(--color-bg);
+      }
+      .lang button:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+      }
+      @media (max-width: 640px) {
+        .nav a:not(.btn) {
+          display: none;
+        }
+        .nav {
+          gap: var(--space-2);
+        }
+        .nav-brand {
+          font-size: 16px;
+          white-space: nowrap;
+        }
+        .lang button {
+          padding: 6px 8px;
+          font-size: 11px;
+        }
+        .nav .btn-primary {
+          font-size: 13px;
+          padding: var(--space-2) var(--space-3);
+        }
+      }
+      /* Below this the brand, the toggle and the button stop fitting on one
+         line. The hero and the contact block both still offer the email. */
+      @media (max-width: 480px) {
+        .nav .btn-primary {
+          display: none;
+        }
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Hero
+         ══════════════════════════════════════════════════════════════ */
+      .hero {
+        padding: calc(3.5 * var(--leading)) 0 calc(3 * var(--leading));
+      }
+      .display {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: clamp(40px, 5.6vw, 76px);
+        line-height: clamp(42px, 5.9vw, 80px);
+        letter-spacing: -0.02em;
+        margin: 0;
+        margin-left: -0.058em;
+      }
+      .display .line {
+        display: block;
+      }
+      .hero .sub {
+        font-size: 17px;
+        line-height: var(--leading);
+        max-width: var(--measure);
+        margin: calc(1.5 * var(--leading) - 1cap) 0 0;
+      }
+      .hero .facts {
+        font-size: 15px;
+        line-height: var(--leading);
+        max-width: var(--measure);
+        margin: var(--half) 0 0;
+        color: color-mix(in srgb, var(--color-text) 65%, transparent);
+      }
+      .avail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: calc(1.5 * var(--leading)) 0 0;
+        font-size: 13px;
+        line-height: var(--half);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-accent-700);
+      }
+      .avail::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background: var(--color-accent);
+        flex: none;
+      }
+      .hero .row {
+        display: flex;
+        gap: var(--space-3);
+        flex-wrap: wrap;
+        margin-top: var(--leading);
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Work
+         ══════════════════════════════════════════════════════════════ */
+      .work {
+        padding: calc(2.5 * var(--leading)) 0;
+      }
+      .project {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+        gap: var(--leading) clamp(24px, 5vw, 96px);
+        align-items: start;
+        padding: calc(1.5 * var(--leading)) 0;
+      }
+      .project + .project {
+        border-top: 2px solid var(--color-divider);
+      }
+      .p-num {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 15px;
+        line-height: var(--leading);
+        font-feature-settings: "tnum" 1;
+        margin: 0 0 var(--half);
+      }
+      .p-meta {
+        font-size: 13px;
+        line-height: var(--half);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        margin: 0 0 6px;
+      }
+      .p-title {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 24px;
+        line-height: var(--leading);
+        letter-spacing: -0.01em;
+        margin: 0 0 var(--half);
+      }
+      .p-title a {
+        color: inherit;
+        text-decoration-color: var(--color-accent);
+        text-decoration-thickness: 2px;
+      }
+      .p-title a:hover {
+        color: var(--color-accent);
+      }
+      .p-copy {
+        font-size: 15.5px;
+        line-height: var(--leading);
+        margin: 0;
+        color: color-mix(in srgb, var(--color-text) 78%, transparent);
+        max-width: 58ch;
+      }
+      .p-outcome {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-3);
+        margin-top: var(--leading);
+      }
+      .o-num {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 32px;
+        line-height: var(--leading);
+        color: var(--color-accent);
+        font-feature-settings: "tnum" 1;
+        margin: 0;
+      }
+      .o-label {
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        margin: 0;
+        max-width: 30ch;
+      }
+      .p-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-top: var(--leading);
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Capabilities / background
+         ══════════════════════════════════════════════════════════════ */
+      .about {
+        padding: calc(2.5 * var(--leading)) 0;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+        gap: var(--leading) clamp(24px, 5vw, 96px);
+        align-items: start;
+      }
+      .facts-list {
+        margin: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+      }
+      .facts-list dt,
+      .facts-list dd {
+        margin: 0;
+        padding: var(--space-2) 0;
+        border-bottom: 1px solid var(--color-divider);
+        line-height: var(--leading);
+      }
+      .facts-list dt {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        padding-right: var(--space-4);
+      }
+      .facts-list dd {
+        font-size: 15.5px;
+      }
+      .prose {
+        font-size: 15.5px;
+        line-height: var(--leading);
+        max-width: 58ch;
+        margin: var(--leading) 0 0;
+        color: color-mix(in srgb, var(--color-text) 78%, transparent);
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Quotes
+         ══════════════════════════════════════════════════════════════ */
+      .quotes {
+        padding: calc(2.5 * var(--leading)) 0 calc(3 * var(--leading));
+      }
+      .qgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calc(2 * var(--leading)) clamp(24px, 5vw, 96px);
+      }
+      .quotes figure {
+        margin: 0;
+      }
+      .quotes blockquote {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: clamp(18px, 1.55vw, 21px);
+        line-height: calc(1.25 * var(--leading));
+        letter-spacing: -0.01em;
+        max-width: 42ch;
+        margin: 0;
+        text-indent: -0.496em;
+      }
+      .quotes figcaption {
+        font-size: 15.5px;
+        line-height: var(--leading);
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        margin: calc(1.25 * var(--leading) - 1cap) 0 0;
+      }
+      .quotes .q-src {
+        display: block;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--color-text) 55%, transparent);
+      }
+      @media (max-width: 720px) {
+        .quotes blockquote {
+          text-indent: 0;
+        }
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Close / footer
+         ══════════════════════════════════════════════════════════════ */
+      .close {
+        background: var(--color-accent);
+        color: var(--color-bg);
+      }
+      .close .wrap {
+        padding-top: calc(3 * var(--leading));
+        padding-bottom: calc(3 * var(--leading));
+      }
+      .close h2 {
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: clamp(32px, 4vw, 52px);
+        line-height: clamp(34px, 4.24vw, 55px);
+        letter-spacing: -0.015em;
+        margin: 0;
+        margin-left: -0.058em;
+      }
+      .close .row {
+        display: flex;
+        gap: var(--space-3);
+        flex-wrap: wrap;
+        margin-top: calc(1.5 * var(--leading));
+      }
+      .close .btn-ghost {
+        color: var(--color-bg);
+      }
+      .close .btn-ghost:hover {
+        background: color-mix(in srgb, #fff 16%, transparent);
+      }
+      footer {
+        padding: calc(2 * var(--leading)) 0;
+        display: flex;
+        gap: var(--space-4);
+        flex-wrap: wrap;
+        font-size: 13px;
+        line-height: var(--leading);
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+      }
+      footer a {
+        color: inherit;
+      }
+      footer a:hover {
+        color: var(--color-accent-700);
+      }
+      footer .spacer {
+        margin-left: auto;
+      }
+
+      @media (max-width: 880px) {
+        .project,
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: var(--leading);
+        }
+        .qgrid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 720px) {
+        .hero {
+          padding-top: calc(2.5 * var(--leading));
+        }
+        .facts-list {
+          grid-template-columns: 1fr;
+        }
+        .facts-list dt {
+          border-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="nav">
+      <span class="nav-brand">Daniel Lacaz Ruiz</span>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <div class="lang" role="group" aria-label="Language / Idioma / Langue">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="pt" aria-pressed="false">PT</button>
+        <button type="button" data-lang-btn="fr" aria-pressed="false">FR</button>
+      </div>
+      <a class="btn btn-primary" href="mailto:daniel.lacaz.ruiz@gmail.com" data-i18n="nav.cta">Get in touch</a>
+    </nav>
+
+    <div class="wrap">
+      <section class="hero">
+        <span class="kicker">Daniel Lacaz Ruiz</span>
+        <h1 class="display" data-i18n="hero.display">
+          <span class="line">Senior full-stack</span>
+          <span class="line">software developer.</span>
+        </h1>
+        <p class="sub" data-i18n="hero.sub">
+          I build greenfield SaaS for fast-moving startup teams across borders
+          and own it end to end: multi-tenant architecture, payments and fiscal
+          infrastructure, production LLM integration, and the performance work
+          that keeps it fast at scale. Six years in, most recently taking a
+          contracted product from zero to production in six months as one of two
+          core engineers.
+        </p>
+        <p class="facts" data-i18n="hero.facts">
+          French, Canadian &amp; Brazilian citizen · UTC−3, available for
+          overlap with US East and West, plus Western Europe · native English,
+          French &amp; Portuguese, professional Spanish.
+        </p>
+        <p class="avail" data-i18n="hero.avail">Available for contract engagements and full-time roles</p>
+        <div class="row">
+          <a class="btn btn-secondary" href="#work" data-i18n="hero.cta">See the work</a>
+          <a class="btn btn-ghost" href="mailto:daniel.lacaz.ruiz@gmail.com">daniel.lacaz.ruiz@gmail.com</a>
+        </div>
+      </section>
+
+      <hr class="rule2" />
+
+      <section class="work" id="work">
+        <span class="kicker" data-i18n="k.work">Selected work</span>
+
+        <article class="project">
+          <div>
+            <p class="p-num">01</p>
+            <p class="p-meta" data-i18n="p1.when">January to June 2026</p>
+            <p class="p-meta" data-i18n="p1.who">
+              Contract for
+              <a href="https://www.publisend.com/" target="_blank" rel="noopener">PubliSend</a>
+            </p>
+            <p class="p-meta" data-i18n="p1.role">Core engineer</p>
+          </div>
+          <div>
+            <h2 class="p-title">
+              <a href="https://www.zunachat.com.br" target="_blank" rel="noopener">ZunaChat</a>
+            </h2>
+            <p class="p-copy" data-i18n="p1.copy">
+              A multi-tenant omnichannel customer-communication SaaS, taken from
+              zero to production in six months as one of two core engineers.
+              Built a drag-and-drop visual automation builder (~19 action types)
+              that lets non-technical operators orchestrate WhatsApp and
+              Instagram workflows, unified the Meta and Evolution APIs behind a
+              single real-time inbox, and added OpenAI- and Gemini-powered
+              auto-reply agents.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p1.onum">6 mo</p>
+              <p class="o-label" data-i18n="p1.olabel">zero to production, 780+ tests</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">Django 6</span>
+              <span class="tag">Nuxt 4</span>
+              <span class="tag">Celery / Redis / Channels</span>
+              <span class="tag">async-first</span>
+              <span class="tag">AWS</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <p class="p-num">02</p>
+            <p class="p-meta" data-i18n="p2.when">Launching 2026</p>
+            <p class="p-meta" data-i18n="p2.role">Core full-stack engineer</p>
+          </div>
+          <div>
+            <h2 class="p-title" data-i18n="p2.title">Stealth startup</h2>
+            <p class="p-copy" data-i18n="p2.copy">
+              A multi-tenant gym-operations SaaS, built as the sole engineer
+              alongside a domain-expert partner. Built the operator platform
+              (unified CRM, scheduling and check-ins, contracts, NPS,
+              audit-trailed staff impersonation) on async-first infrastructure:
+              Celery jobs off the request path, results streamed over Django
+              Channels WebSockets. Added owner-facing revenue intelligence: real-time MRR, churn and
+              LTV dashboards with forecasts, plus a daily scorer that flags
+              cooling sales opportunities and recommends a next action. Built the
+              companion React Native / Expo app as one role-aware binary for
+              members and staff, with an offline-first workout player that
+              survives app kills and syncs idempotently on reconnect.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p2.onum">33</p>
+              <p class="o-label" data-i18n="p2.olabel">modules, 600+ models, built solo</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">Django</span>
+              <span class="tag">Nuxt 4</span>
+              <span class="tag">Celery / Redis / Channels</span>
+              <span class="tag">React Native / Expo</span>
+              <span class="tag">async-first</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <p class="p-num">03</p>
+            <p class="p-meta" data-i18n="p3.when">2023 to 2025</p>
+            <p class="p-meta" data-i18n="p3.role">Core full-stack engineer</p>
+            <p class="p-meta" data-i18n="p3.stats">1,400+ commits · 300+ unit specs</p>
+          </div>
+          <div>
+            <h2 class="p-title">
+              <a href="https://www.pivott.io/" target="_blank" rel="noopener">Pivott VMS</a>
+            </h2>
+            <p class="p-copy" data-i18n="p3.copy">
+              Core engineer on a multi-tenant vendor- and contract-management
+              platform for property managers, built zero-to-production over 18
+              months as one of its most active contributors. Owned the
+              spend-management module end to end and a reminders engine tied to
+              contract and compliance dates (auto-created, recalculated on
+              change, delivered over email and Slack) that became a core
+              retention driver. Built SSO and audit logging.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p3.onum">~15</p>
+              <p class="o-label" data-i18n="p3.olabel">enterprise property-management clients, each managing thousands of contracts</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">Django REST</span>
+              <span class="tag">Nuxt 3 / Vuetify</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <p class="p-num">04</p>
+            <p class="p-meta" data-i18n="p4.when">2020 to 2023</p>
+            <p class="p-meta" data-i18n="p4.role">Software engineer</p>
+          </div>
+          <div>
+            <h2 class="p-title">
+              <a href="https://nokisystems.com/" target="_blank" rel="noopener">Noki Systems</a>
+            </h2>
+            <p class="p-copy" data-i18n="p4.copy">
+              Independently shipped the company's flagship mobile app (React,
+              Ionic / Capacitor) end to end, including in-app auto-update, along
+              with the Django REST API behind it. Integrated Stripe recurring
+              payments and Twilio OTP / SMS, and built admin dashboards for user
+              management, revenue, and IoT-hardware oversight.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p4.onum">300+</p>
+              <p class="o-label" data-i18n="p4.olabel">organizations across North America</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">React</span>
+              <span class="tag">Ionic / Capacitor</span>
+              <span class="tag">Django REST</span>
+              <span class="tag">Stripe</span>
+              <span class="tag">Twilio</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <hr class="rule2" />
+
+      <section class="work" id="side">
+        <span class="kicker" data-i18n="k.side">Side project</span>
+
+        <article class="project">
+          <div>
+            <p class="p-num">05</p>
+            <p class="p-meta" data-i18n="p5.when">2026</p>
+            <p class="p-meta" data-i18n="p5.role">Solo: ML, mobile &amp; web</p>
+          </div>
+          <div>
+            <h2 class="p-title">
+              <a href="https://escoliose.org/" target="_blank" rel="noopener">Aligna</a>
+            </h2>
+            <p class="p-copy" data-i18n="p5.copy">
+              A posture and body-symmetry tracker that reads a single back-view
+              photo. Trained a keypoint model that places eight body landmarks
+              (neck, shoulders, waist, hips, pelvis) and derives shoulder and hip
+              level, trunk tilt, and waist asymmetry, then tracks them over time.
+              Built the whole pipeline solo, from weak auto-labeling and
+              background randomization through training, quantization, and both
+              runtimes. Portuguese-first, accessibility-tuned, and deliberately
+              non-diagnostic: it reports neutral observations, never a verdict.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p5.onum">0</p>
+              <p class="o-label" data-i18n="p5.olabel">photos leave the device — inference is fully local, so it is LGPD-compliant by design</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">TensorFlow</span>
+              <span class="tag">MobileNetV3-Small</span>
+              <span class="tag">TFLite (int8)</span>
+              <span class="tag">TF.js (float16)</span>
+              <span class="tag">Expo / React Native</span>
+              <span class="tag">Cloudflare Workers</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <hr class="rule2" />
+
+      <section class="quotes" id="testimonials">
+        <span class="kicker" data-i18n="k.quotes">What people say</span>
+        <div class="qgrid">
+          <figure>
+            <blockquote data-i18n="q1.text">
+              &ldquo;I had the opportunity to work with him and can confidently
+              say he is an outstanding professional. He is highly skilled,
+              reliable, and always committed to delivering high-quality results.
+              Beyond his technical expertise, he communicates clearly, takes
+              ownership of his work, and consistently looks for the best solution
+              to every challenge.&rdquo;
+            </blockquote>
+            <figcaption>
+              Luiz Gindro · CTO, PubliSend
+              <span class="q-src" data-i18n="q1.src">LinkedIn recommendation, July 2026 · managed Daniel directly</span>
+            </figcaption>
+          </figure>
+          <figure>
+            <blockquote data-i18n="q2.text">
+              &ldquo;Daniel is a very dedicated and innovative individual who has
+              proven eagerness and ability to learn. During his tenure with Noki
+              Systems, he has proven his ability to learn on the go and implement
+              features critical to the product.&rdquo;
+            </blockquote>
+            <figcaption>
+              Malik Jahanzaib · Software Lead, Noki Systems
+              <span class="q-src" data-i18n="q2.src">LinkedIn recommendation, March 2023 · managed Daniel directly</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <hr class="rule2" />
+
+      <section class="about" id="about">
+        <div class="about-grid">
+          <div>
+            <span class="kicker" data-i18n="k.about">About</span>
+          </div>
+          <div>
+            <dl class="facts-list">
+              <dt data-i18n="a.langs">Languages</dt>
+              <dd>Python, TypeScript, JavaScript, SQL</dd>
+              <dt data-i18n="a.back">Backend</dt>
+              <dd>Django, Django REST, Celery, Redis, Channels, PostgreSQL</dd>
+              <dt data-i18n="a.front">Frontend</dt>
+              <dd>Vue, Nuxt, React, Ionic / Capacitor, Vuetify</dd>
+              <dt data-i18n="a.infra">Infrastructure</dt>
+              <dd>AWS, Docker, CI/CD, Cloudflare Workers</dd>
+              <dt data-i18n="a.also">Also</dt>
+              <dd data-i18n="a.alsoval">LLM integration (OpenAI, Gemini), payments (Stripe, PIX, boleto), TensorFlow</dd>
+            </dl>
+            <p class="prose" data-i18n="a.bio">
+              B.Sc. (Honours) in Biology from McMaster University, with a
+              bioinformatics research background that produced published work on
+              low-complexity sequence motifs in untranslated regions and on gene
+              correlation across breast-cancer subtypes.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="close" id="contact">
+      <div class="wrap">
+        <h2 data-i18n="c.title"><span class="line">Have a project or a role in mind?</span></h2>
+        <div class="row">
+          <a class="btn btn-ghost" href="mailto:daniel.lacaz.ruiz@gmail.com" data-i18n="c.email">Email: daniel.lacaz.ruiz@gmail.com</a>
+          <a class="btn btn-ghost" href="https://github.com/danlruiz/" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/daniel-lacaz-ruiz/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <footer>
+        <span>© 2026 Daniel Lacaz Ruiz</span>
+        <a href="mailto:daniel.lacaz.ruiz@gmail.com">daniel.lacaz.ruiz@gmail.com</a>
+        <a href="https://github.com/danlruiz/" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/daniel-lacaz-ruiz/" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="spacer">UTC−3</span>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var TAGS = { en: "en", pt: "pt-BR", fr: "fr" };
+
+        var I18N = {
+          pt: {
+            "meta.title": "Daniel Lacaz Ruiz · Desenvolvedor de software full-stack sênior",
+            "meta.desc": "Daniel Lacaz Ruiz, desenvolvedor de software full-stack sênior. SaaS multi-tenant greenfield, Python / Django, Vue / Nuxt, AWS.",
+            "nav.work": "Trabalhos",
+            "nav.testimonials": "Recomendações",
+            "nav.about": "Sobre",
+            "nav.cta": "Fale comigo",
+            "hero.display": '<span class="line">Desenvolvedor de software</span><span class="line">full-stack sênior.</span>',
+            "hero.sub": "Construo SaaS greenfield para times de startup que se movem rápido, através de fronteiras, e assumo o produto de ponta a ponta: arquitetura multi-tenant, infraestrutura de pagamentos e fiscal, integração de LLM em produção e o trabalho de performance que mantém tudo rápido em escala. Seis anos de estrada, mais recentemente levando um produto contratado do zero à produção em seis meses como um dos dois engenheiros principais.",
+            "hero.facts": "Cidadão francês, canadense e brasileiro · UTC−3, disponível para sobreposição com o leste e o oeste dos EUA, além da Europa Ocidental · inglês, francês e português nativos, espanhol profissional.",
+            "hero.avail": "Disponível para contratos e posições full-time",
+            "hero.cta": "Ver os trabalhos",
+            "k.work": "Trabalhos selecionados",
+            "k.side": "Projeto paralelo",
+            "k.quotes": "O que dizem",
+            "k.about": "Sobre",
+            "p1.when": "Janeiro a junho de 2026",
+            "p1.who": 'Contrato para <a href="https://www.publisend.com/" target="_blank" rel="noopener">PubliSend</a>',
+            "p1.role": "Engenheiro principal",
+            "p1.copy": "Um SaaS multi-tenant de comunicação omnichannel com clientes, levado do zero à produção em seis meses como um dos dois engenheiros principais. Construí um editor visual de automações drag-and-drop (~19 tipos de ação) que permite a operadores não técnicos orquestrar fluxos de WhatsApp e Instagram, unifiquei as APIs da Meta e da Evolution atrás de uma única caixa de entrada em tempo real e adicionei agentes de resposta automática com OpenAI e Gemini.",
+            "p1.onum": "6 meses",
+            "p1.olabel": "do zero à produção, 780+ testes",
+            "p2.when": "Lançamento em 2026",
+            "p2.role": "Engenheiro full-stack principal",
+            "p2.title": "Startup em stealth",
+            "p2.copy": "Um SaaS multi-tenant de operações para academias, construído como engenheiro único ao lado de um sócio especialista no domínio. Construí a plataforma do operador (CRM unificado, agenda e check-ins, contratos, NPS, impersonação de equipe com trilha de auditoria) sobre uma infraestrutura async-first: jobs no Celery fora do caminho da requisição, com os resultados transmitidos por WebSockets do Django Channels. Adicionei inteligência de receita para o dono: dashboards de MRR, churn e LTV em tempo real com projeções, além de um scorer diário que sinaliza oportunidades de venda esfriando e recomenda a próxima ação. Construí o app companheiro em React Native / Expo como um único binário ciente de papéis para alunos e equipe, com um player de treino offline-first que sobrevive ao fechamento do app e sincroniza de forma idempotente ao reconectar.",
+            "p2.onum": "33",
+            "p2.olabel": "módulos, 600+ models, construídos sozinho",
+            "p3.when": "2023 a 2025",
+            "p3.role": "Engenheiro full-stack principal",
+            "p3.stats": "1.400+ commits · 300+ specs unitários",
+            "p3.copy": "Engenheiro principal em uma plataforma multi-tenant de gestão de fornecedores e contratos para administradoras de imóveis, construída do zero à produção ao longo de 18 meses como um dos contribuidores mais ativos. Fui dono do módulo de gestão de gastos de ponta a ponta e de um motor de lembretes atrelado a datas de contrato e conformidade (criados automaticamente, recalculados a cada mudança, entregues por e-mail e Slack) que virou um driver central de retenção. Construí SSO e log de auditoria.",
+            "p3.onum": "~15",
+            "p3.olabel": "clientes corporativos de gestão imobiliária, cada um administrando milhares de contratos",
+            "p4.when": "2020 a 2023",
+            "p4.role": "Engenheiro de software",
+            "p4.copy": "Entreguei sozinho o app mobile carro-chefe da empresa (React, Ionic / Capacitor) de ponta a ponta, incluindo atualização automática dentro do app, junto com a API Django REST por trás dele. Integrei pagamentos recorrentes da Stripe e OTP / SMS da Twilio, e construí dashboards administrativos para gestão de usuários, receita e supervisão de hardware IoT.",
+            "p4.onum": "300+",
+            "p4.olabel": "organizações na América do Norte",
+            "p5.when": "2026",
+            "p5.role": "Sozinho: ML, mobile e web",
+            "p5.copy": "Um monitor de postura e simetria corporal que lê uma única foto de costas. Treinei um modelo de keypoints que posiciona oito pontos anatômicos (pescoço, ombros, cintura, quadris, pelve) e deriva o nivelamento de ombros e quadris, a inclinação do tronco e a assimetria da cintura, acompanhando tudo ao longo do tempo. Construí o pipeline inteiro sozinho, da rotulagem automática fraca e randomização de fundo ao treino, à quantização e aos dois runtimes. Em português primeiro, pensado para acessibilidade e deliberadamente não diagnóstico: reporta observações neutras, nunca um veredito.",
+            "p5.onum": "0",
+            "p5.olabel": "fotos saem do aparelho — a inferência é totalmente local, em conformidade com a LGPD desde o projeto",
+            "q1.text": "&ldquo;Tive a oportunidade de trabalhar com ele e posso dizer com confiança que é um profissional excepcional. É altamente qualificado, confiável e sempre comprometido em entregar resultados de alta qualidade. Além da sua expertise técnica, comunica com clareza, assume a responsabilidade pelo próprio trabalho e busca consistentemente a melhor solução para cada desafio.&rdquo;",
+            "q1.src": "Recomendação no LinkedIn, julho de 2026 · foi gestor direto do Daniel · traduzida do inglês",
+            "q2.text": "&ldquo;Daniel é uma pessoa muito dedicada e inovadora, que demonstrou vontade e capacidade de aprender. Durante seu período na Noki Systems, provou sua habilidade de aprender no ritmo do trabalho e implementar funcionalidades críticas para o produto.&rdquo;",
+            "q2.src": "Recomendação no LinkedIn, março de 2023 · foi gestor direto do Daniel · traduzida do inglês",
+            "a.langs": "Linguagens",
+            "a.back": "Back-end",
+            "a.front": "Front-end",
+            "a.infra": "Infraestrutura",
+            "a.also": "Também",
+            "a.alsoval": "Integração de LLM (OpenAI, Gemini), pagamentos (Stripe, PIX, boleto), TensorFlow",
+            "a.bio": "Bacharelado (Honours) em Biologia pela McMaster University, com background de pesquisa em bioinformática que resultou em trabalhos publicados sobre motivos de sequência de baixa complexidade em regiões não traduzidas e sobre correlação gênica entre subtipos de câncer de mama.",
+            "c.title": '<span class="line">Tem um projeto ou uma vaga em mente?</span>',
+            "c.email": "E-mail: daniel.lacaz.ruiz@gmail.com"
+          },
+
+          fr: {
+            "meta.title": "Daniel Lacaz Ruiz · Développeur logiciel full-stack senior",
+            "meta.desc": "Daniel Lacaz Ruiz, développeur logiciel full-stack senior. SaaS multi-tenant greenfield, Python / Django, Vue / Nuxt, AWS.",
+            "nav.work": "Travaux",
+            "nav.testimonials": "Recommandations",
+            "nav.about": "À propos",
+            "nav.cta": "Me contacter",
+            "hero.display": '<span class="line">Développeur logiciel</span><span class="line">full-stack senior.</span>',
+            "hero.sub": "Je construis des SaaS greenfield pour des équipes de startup qui avancent vite, au-delà des frontières, et j’en assume la charge de bout en bout : architecture multi-tenant, infrastructure de paiement et de facturation, intégration de LLM en production, et le travail de performance qui garde le tout rapide à l’échelle. Six ans de métier, et plus récemment un produit sous contrat mené de zéro à la production en six mois, comme l’un des deux ingénieurs principaux.",
+            "hero.facts": "Citoyen français, canadien et brésilien · UTC−3, disponible en chevauchement avec l’est et l’ouest des États-Unis, ainsi que l’Europe de l’Ouest · anglais, français et portugais natifs, espagnol professionnel.",
+            "hero.avail": "Disponible pour des missions en freelance et des postes à temps plein",
+            "hero.cta": "Voir les travaux",
+            "k.work": "Travaux sélectionnés",
+            "k.side": "Projet personnel",
+            "k.quotes": "Ce qu’on en dit",
+            "k.about": "À propos",
+            "p1.when": "Janvier à juin 2026",
+            "p1.who": 'Contrat pour <a href="https://www.publisend.com/" target="_blank" rel="noopener">PubliSend</a>',
+            "p1.role": "Ingénieur principal",
+            "p1.copy": "Un SaaS multi-tenant de communication client omnicanale, mené de zéro à la production en six mois comme l’un des deux ingénieurs principaux. J’ai construit un éditeur visuel d’automatisations en glisser-déposer (~19 types d’actions) qui permet à des opérateurs non techniques d’orchestrer des flux WhatsApp et Instagram, unifié les API Meta et Evolution derrière une seule boîte de réception temps réel, et ajouté des agents de réponse automatique propulsés par OpenAI et Gemini.",
+            "p1.onum": "6 mois",
+            "p1.olabel": "de zéro à la production, 780+ tests",
+            "p2.when": "Lancement en 2026",
+            "p2.role": "Ingénieur full-stack principal",
+            "p2.title": "Startup en stealth",
+            "p2.copy": "Un SaaS multi-tenant de gestion de salles de sport, construit comme seul ingénieur aux côtés d’un associé expert du domaine. J’ai construit la plateforme opérateur (CRM unifié, planning et check-ins, contrats, NPS, impersonation du personnel avec piste d’audit) sur une infrastructure async-first : des tâches Celery hors du chemin de la requête, dont les résultats sont diffusés par WebSockets Django Channels. J’ai ajouté une intelligence de revenus pour le gérant : tableaux de bord MRR, churn et LTV en temps réel avec prévisions, et un scoring quotidien qui signale les opportunités commerciales qui refroidissent et recommande une prochaine action. J’ai construit l’application compagnon en React Native / Expo comme un seul binaire conscient des rôles pour les membres et le personnel, avec un lecteur de séance offline-first qui survit à la fermeture de l’app et se synchronise de façon idempotente à la reconnexion.",
+            "p2.onum": "33",
+            "p2.olabel": "modules, 600+ modèles, construits en solo",
+            "p3.when": "2023 à 2025",
+            "p3.role": "Ingénieur full-stack principal",
+            "p3.stats": "1 400+ commits · 300+ tests unitaires",
+            "p3.copy": "Ingénieur principal sur une plateforme multi-tenant de gestion des fournisseurs et des contrats pour gestionnaires immobiliers, construite de zéro à la production sur 18 mois comme l’un de ses contributeurs les plus actifs. J’ai pris en charge le module de gestion des dépenses de bout en bout ainsi qu’un moteur de rappels lié aux dates de contrat et de conformité (créés automatiquement, recalculés à chaque changement, livrés par e-mail et Slack) devenu un levier central de rétention. J’ai construit le SSO et la journalisation d’audit.",
+            "p3.onum": "~15",
+            "p3.olabel": "clients grands comptes en gestion immobilière, gérant chacun des milliers de contrats",
+            "p4.when": "2020 à 2023",
+            "p4.role": "Ingénieur logiciel",
+            "p4.copy": "J’ai livré seul l’application mobile phare de l’entreprise (React, Ionic / Capacitor) de bout en bout, y compris la mise à jour automatique intégrée, ainsi que l’API Django REST derrière. J’ai intégré les paiements récurrents Stripe et l’OTP / SMS Twilio, et construit les tableaux de bord d’administration pour la gestion des utilisateurs, les revenus et la supervision du matériel IoT.",
+            "p4.onum": "300+",
+            "p4.olabel": "organisations en Amérique du Nord",
+            "p5.when": "2026",
+            "p5.role": "En solo : ML, mobile et web",
+            "p5.copy": "Un suivi de posture et de symétrie corporelle qui lit une seule photo de dos. J’ai entraîné un modèle de points clés qui place huit repères anatomiques (nuque, épaules, taille, hanches, bassin) et en déduit l’horizontalité des épaules et des hanches, l’inclinaison du tronc et l’asymétrie de la taille, puis suit ces mesures dans le temps. J’ai construit tout le pipeline en solo, de l’étiquetage automatique faible et la randomisation d’arrière-plan jusqu’à l’entraînement, la quantification et les deux runtimes. En portugais d’abord, pensé pour l’accessibilité et délibérément non diagnostique : il rapporte des observations neutres, jamais un verdict.",
+            "p5.onum": "0",
+            "p5.olabel": "photo ne quitte l’appareil — l’inférence est entièrement locale, conforme à la LGPD dès la conception",
+            "q1.text": "&laquo;&nbsp;J’ai eu l’occasion de travailler avec lui et je peux affirmer sans hésiter que c’est un professionnel remarquable. Il est très compétent, fiable, et toujours engagé à livrer un travail de grande qualité. Au-delà de son expertise technique, il communique clairement, prend la responsabilité de son travail et cherche systématiquement la meilleure solution à chaque problème.&nbsp;&raquo;",
+            "q1.src": "Recommandation LinkedIn, juillet 2026 · a encadré Daniel directement · traduite de l’anglais",
+            "q2.text": "&laquo;&nbsp;Daniel est quelqu’un de très investi et inventif, qui a démontré son envie et sa capacité d’apprendre. Pendant son passage chez Noki Systems, il a prouvé sa capacité à apprendre sur le terrain et à implémenter des fonctionnalités critiques pour le produit.&nbsp;&raquo;",
+            "q2.src": "Recommandation LinkedIn, mars 2023 · a encadré Daniel directement · traduite de l’anglais",
+            "a.langs": "Langages",
+            "a.back": "Back-end",
+            "a.front": "Front-end",
+            "a.infra": "Infrastructure",
+            "a.also": "Également",
+            "a.alsoval": "Intégration de LLM (OpenAI, Gemini), paiements (Stripe, PIX, boleto), TensorFlow",
+            "a.bio": "Licence (avec mention Honours) en biologie de l’université McMaster, avec un parcours de recherche en bio-informatique ayant donné lieu à des publications sur les motifs de séquence de faible complexité dans les régions non traduites et sur la corrélation génique entre sous-types de cancer du sein.",
+            "c.title": '<span class="line">Un projet ou un poste en tête&nbsp;?</span>',
+            "c.email": "E-mail : daniel.lacaz.ruiz@gmail.com"
+          }
+        };
+
+        var nodes = document.querySelectorAll("[data-i18n]");
+        var descEl = document.querySelector('meta[name="description"]');
+
+        /* The English copy in the markup is the source of truth; capture it so
+           switching back to EN needs no dictionary of its own. */
+        var EN = { "meta.title": document.title, "meta.desc": descEl ? descEl.content : "" };
+        Array.prototype.forEach.call(nodes, function (el) {
+          EN[el.getAttribute("data-i18n")] = el.innerHTML;
+        });
+
+        function normalize(value) {
+          if (!value) return null;
+          var v = String(value).toLowerCase();
+          if (v.indexOf("pt") === 0) return "pt";
+          if (v.indexOf("fr") === 0) return "fr";
+          if (v.indexOf("en") === 0) return "en";
+          return null;
+        }
+
+        function apply(lang, updateUrl) {
+          var dict = lang === "en" ? EN : I18N[lang];
+          if (!dict) return;
+
+          Array.prototype.forEach.call(nodes, function (el) {
+            var key = el.getAttribute("data-i18n");
+            var value = dict[key];
+            if (value === undefined) value = EN[key];
+            if (value !== undefined) el.innerHTML = value;
+          });
+
+          document.title = dict["meta.title"] || EN["meta.title"];
+          if (descEl) descEl.content = dict["meta.desc"] || EN["meta.desc"];
+          document.documentElement.lang = TAGS[lang];
+
+          Array.prototype.forEach.call(
+            document.querySelectorAll("[data-lang-btn]"),
+            function (btn) {
+              btn.setAttribute(
+                "aria-pressed",
+                btn.getAttribute("data-lang-btn") === lang ? "true" : "false"
+              );
+            }
+          );
+
+          try {
+            localStorage.setItem("lang", lang);
+          } catch (e) {
+            /* private mode: preference just isn't remembered */
+          }
+
+          if (updateUrl && window.history && history.replaceState) {
+            var url = new URL(window.location.href);
+            if (lang === "en") url.searchParams.delete("lang");
+            else url.searchParams.set("lang", lang);
+            history.replaceState(null, "", url.toString());
+          }
+        }
+
+        /* A ?lang= in the URL always wins, so a shared link opens in the
+           language it was shared in. Then a remembered choice, then the
+           browser's own language. */
+        var fromUrl = null;
+        try {
+          fromUrl = normalize(new URL(window.location.href).searchParams.get("lang"));
+        } catch (e) {}
+
+        var stored = null;
+        try {
+          stored = normalize(localStorage.getItem("lang"));
+        } catch (e) {}
+
+        var initial =
+          fromUrl || stored || normalize(navigator.language || navigator.userLanguage) || "en";
+
+        apply(initial, initial !== "en");
+
+        Array.prototype.forEach.call(
+          document.querySelectorAll("[data-lang-btn]"),
+          function (btn) {
+            btn.addEventListener("click", function () {
+              apply(btn.getAttribute("data-lang-btn"), true);
+            });
+          }
+        );
+      })();
+    </script>
+  </body>
+</html>
