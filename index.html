@@ -665,7 +665,7 @@
             <p class="p-meta" data-i18n="p2.role">Core full-stack engineer</p>
           </div>
           <div>
-            <h2 class="p-title" data-i18n="p2.title">Stealth startup</h2>
+            <h2 class="p-title">PulsoTech</h2>
             <p class="p-copy" data-i18n="p2.copy">
               A multi-tenant gym-operations SaaS, built as the sole engineer
               alongside a domain-expert partner. Built the operator platform
@@ -696,6 +696,40 @@
         <article class="project">
           <div>
             <p class="p-num">03</p>
+            <p class="p-meta" data-i18n="p5.when">June 2026 to present</p>
+            <p class="p-meta" data-i18n="p5.role">Client engagement · Lead: ML, mobile &amp; web</p>
+          </div>
+          <div>
+            <h2 class="p-title">
+              <a href="https://escoliose.org/" target="_blank" rel="noopener">Aligna</a>
+            </h2>
+            <p class="p-copy" data-i18n="p5.copy">
+              A posture and body-symmetry tracker that reads a single back-view
+              photo. Trained a keypoint model that places eight body landmarks
+              (neck, shoulders, waist, hips, pelvis) and derives shoulder and hip
+              level, trunk tilt, and waist asymmetry, then tracks them over time.
+              Built the whole pipeline end to end, from weak auto-labeling and
+              background randomization through training, quantization, and both
+              runtimes. Portuguese-first, accessibility-tuned, and deliberately
+              non-diagnostic: it reports neutral observations, never a verdict.
+            </p>
+            <div class="p-outcome">
+              <p class="o-num" data-i18n="p5.onum">0</p>
+              <p class="o-label" data-i18n="p5.olabel">photos leave the device — inference is fully local, so it is LGPD-compliant by design</p>
+            </div>
+            <div class="p-tags">
+              <span class="tag">TensorFlow</span>
+              <span class="tag">MobileNetV3-Small</span>
+              <span class="tag">TFLite (int8)</span>
+              <span class="tag">TF.js (float16)</span>
+              <span class="tag">Expo / React Native</span>
+              <span class="tag">Cloudflare Workers</span>
+            </div>
+          </div>
+        </article>
+        <article class="project">
+          <div>
+            <p class="p-num">04</p>
             <p class="p-meta" data-i18n="p3.when">2023 to 2025</p>
             <p class="p-meta" data-i18n="p3.role">Core full-stack engineer</p>
             <p class="p-meta" data-i18n="p3.stats">1,400+ commits · 300+ unit specs</p>
@@ -727,7 +761,7 @@
 
         <article class="project">
           <div>
-            <p class="p-num">04</p>
+            <p class="p-num">05</p>
             <p class="p-meta" data-i18n="p4.when">2020 to 2023</p>
             <p class="p-meta" data-i18n="p4.role">Software engineer</p>
           </div>
@@ -757,46 +791,6 @@
         </article>
       </section>
 
-      <hr class="rule2" />
-
-      <section class="work" id="side">
-        <span class="kicker" data-i18n="k.side">Side project</span>
-
-        <article class="project">
-          <div>
-            <p class="p-num">05</p>
-            <p class="p-meta" data-i18n="p5.when">2026</p>
-            <p class="p-meta" data-i18n="p5.role">Solo: ML, mobile &amp; web</p>
-          </div>
-          <div>
-            <h2 class="p-title">
-              <a href="https://escoliose.org/" target="_blank" rel="noopener">Aligna</a>
-            </h2>
-            <p class="p-copy" data-i18n="p5.copy">
-              A posture and body-symmetry tracker that reads a single back-view
-              photo. Trained a keypoint model that places eight body landmarks
-              (neck, shoulders, waist, hips, pelvis) and derives shoulder and hip
-              level, trunk tilt, and waist asymmetry, then tracks them over time.
-              Built the whole pipeline solo, from weak auto-labeling and
-              background randomization through training, quantization, and both
-              runtimes. Portuguese-first, accessibility-tuned, and deliberately
-              non-diagnostic: it reports neutral observations, never a verdict.
-            </p>
-            <div class="p-outcome">
-              <p class="o-num" data-i18n="p5.onum">0</p>
-              <p class="o-label" data-i18n="p5.olabel">photos leave the device — inference is fully local, so it is LGPD-compliant by design</p>
-            </div>
-            <div class="p-tags">
-              <span class="tag">TensorFlow</span>
-              <span class="tag">MobileNetV3-Small</span>
-              <span class="tag">TFLite (int8)</span>
-              <span class="tag">TF.js (float16)</span>
-              <span class="tag">Expo / React Native</span>
-              <span class="tag">Cloudflare Workers</span>
-            </div>
-          </div>
-        </article>
-      </section>
 
       <hr class="rule2" />
 
@@ -904,7 +898,6 @@
             "hero.avail": "Disponível para contratos e posições full-time",
             "hero.cta": "Ver os trabalhos",
             "k.work": "Trabalhos selecionados",
-            "k.side": "Projeto paralelo",
             "k.quotes": "O que dizem",
             "k.about": "Sobre",
             "p1.when": "Janeiro a junho de 2026",
@@ -915,7 +908,6 @@
             "p1.olabel": "do zero à produção, 780+ testes",
             "p2.when": "Lançamento em 2026",
             "p2.role": "Engenheiro full-stack principal",
-            "p2.title": "Startup em stealth",
             "p2.copy": "Um SaaS multi-tenant de operações para academias, construído como engenheiro único ao lado de um sócio especialista no domínio. Construí a plataforma do operador (CRM unificado, agenda e check-ins, contratos, NPS, impersonação de equipe com trilha de auditoria) sobre uma infraestrutura async-first: jobs no Celery fora do caminho da requisição, com os resultados transmitidos por WebSockets do Django Channels. Adicionei inteligência de receita para o dono: dashboards de MRR, churn e LTV em tempo real com projeções, além de um scorer diário que sinaliza oportunidades de venda esfriando e recomenda a próxima ação. Construí o app companheiro em React Native / Expo como um único binário ciente de papéis para alunos e equipe, com um player de treino offline-first que sobrevive ao fechamento do app e sincroniza de forma idempotente ao reconectar.",
             "p2.onum": "33",
             "p2.olabel": "módulos, 600+ models, construídos sozinho",
@@ -930,9 +922,9 @@
             "p4.copy": "Entreguei sozinho o app mobile carro-chefe da empresa (React, Ionic / Capacitor) de ponta a ponta, incluindo atualização automática dentro do app, junto com a API Django REST por trás dele. Integrei pagamentos recorrentes da Stripe e OTP / SMS da Twilio, e construí dashboards administrativos para gestão de usuários, receita e supervisão de hardware IoT.",
             "p4.onum": "300+",
             "p4.olabel": "organizações na América do Norte",
-            "p5.when": "2026",
-            "p5.role": "Sozinho: ML, mobile e web",
-            "p5.copy": "Um monitor de postura e simetria corporal que lê uma única foto de costas. Treinei um modelo de keypoints que posiciona oito pontos anatômicos (pescoço, ombros, cintura, quadris, pelve) e deriva o nivelamento de ombros e quadris, a inclinação do tronco e a assimetria da cintura, acompanhando tudo ao longo do tempo. Construí o pipeline inteiro sozinho, da rotulagem automática fraca e randomização de fundo ao treino, à quantização e aos dois runtimes. Em português primeiro, pensado para acessibilidade e deliberadamente não diagnóstico: reporta observações neutras, nunca um veredito.",
+            "p5.when": "Junho de 2026 até hoje",
+            "p5.role": "Trabalho contratado · Líder: ML, mobile e web",
+            "p5.copy": "Um monitor de postura e simetria corporal que lê uma única foto de costas. Treinei um modelo de keypoints que posiciona oito pontos anatômicos (pescoço, ombros, cintura, quadris, pelve) e deriva o nivelamento de ombros e quadris, a inclinação do tronco e a assimetria da cintura, acompanhando tudo ao longo do tempo. Construí o pipeline inteiro de ponta a ponta, da rotulagem automática fraca e randomização de fundo ao treino, à quantização e aos dois runtimes. Em português primeiro, pensado para acessibilidade e deliberadamente não diagnóstico: reporta observações neutras, nunca um veredito.",
             "p5.onum": "0",
             "p5.olabel": "fotos saem do aparelho — a inferência é totalmente local, em conformidade com a LGPD desde o projeto",
             "q1.text": "&ldquo;Tive a oportunidade de trabalhar com ele e posso dizer com confiança que é um profissional excepcional. É altamente qualificado, confiável e sempre comprometido em entregar resultados de alta qualidade. Além da sua expertise técnica, comunica com clareza, assume a responsabilidade pelo próprio trabalho e busca consistentemente a melhor solução para cada desafio.&rdquo;",
@@ -963,7 +955,6 @@
             "hero.avail": "Disponible pour des missions en freelance et des postes à temps plein",
             "hero.cta": "Voir les travaux",
             "k.work": "Travaux sélectionnés",
-            "k.side": "Projet personnel",
             "k.quotes": "Ce qu’on en dit",
             "k.about": "À propos",
             "p1.when": "Janvier à juin 2026",
@@ -974,7 +965,6 @@
             "p1.olabel": "de zéro à la production, 780+ tests",
             "p2.when": "Lancement en 2026",
             "p2.role": "Ingénieur full-stack principal",
-            "p2.title": "Startup en stealth",
             "p2.copy": "Un SaaS multi-tenant de gestion de salles de sport, construit comme seul ingénieur aux côtés d’un associé expert du domaine. J’ai construit la plateforme opérateur (CRM unifié, planning et check-ins, contrats, NPS, impersonation du personnel avec piste d’audit) sur une infrastructure async-first : des tâches Celery hors du chemin de la requête, dont les résultats sont diffusés par WebSockets Django Channels. J’ai ajouté une intelligence de revenus pour le gérant : tableaux de bord MRR, churn et LTV en temps réel avec prévisions, et un scoring quotidien qui signale les opportunités commerciales qui refroidissent et recommande une prochaine action. J’ai construit l’application compagnon en React Native / Expo comme un seul binaire conscient des rôles pour les membres et le personnel, avec un lecteur de séance offline-first qui survit à la fermeture de l’app et se synchronise de façon idempotente à la reconnexion.",
             "p2.onum": "33",
             "p2.olabel": "modules, 600+ modèles, construits en solo",
@@ -989,9 +979,9 @@
             "p4.copy": "J’ai livré seul l’application mobile phare de l’entreprise (React, Ionic / Capacitor) de bout en bout, y compris la mise à jour automatique intégrée, ainsi que l’API Django REST derrière. J’ai intégré les paiements récurrents Stripe et l’OTP / SMS Twilio, et construit les tableaux de bord d’administration pour la gestion des utilisateurs, les revenus et la supervision du matériel IoT.",
             "p4.onum": "300+",
             "p4.olabel": "organisations en Amérique du Nord",
-            "p5.when": "2026",
-            "p5.role": "En solo : ML, mobile et web",
-            "p5.copy": "Un suivi de posture et de symétrie corporelle qui lit une seule photo de dos. J’ai entraîné un modèle de points clés qui place huit repères anatomiques (nuque, épaules, taille, hanches, bassin) et en déduit l’horizontalité des épaules et des hanches, l’inclinaison du tronc et l’asymétrie de la taille, puis suit ces mesures dans le temps. J’ai construit tout le pipeline en solo, de l’étiquetage automatique faible et la randomisation d’arrière-plan jusqu’à l’entraînement, la quantification et les deux runtimes. En portugais d’abord, pensé pour l’accessibilité et délibérément non diagnostique : il rapporte des observations neutres, jamais un verdict.",
+            "p5.when": "Depuis juin 2026",
+            "p5.role": "Mission client · Responsable : ML, mobile et web",
+            "p5.copy": "Un suivi de posture et de symétrie corporelle qui lit une seule photo de dos. J’ai entraîné un modèle de points clés qui place huit repères anatomiques (nuque, épaules, taille, hanches, bassin) et en déduit l’horizontalité des épaules et des hanches, l’inclinaison du tronc et l’asymétrie de la taille, puis suit ces mesures dans le temps. J’ai construit tout le pipeline de bout en bout, de l’étiquetage automatique faible et la randomisation d’arrière-plan jusqu’à l’entraînement, la quantification et les deux runtimes. En portugais d’abord, pensé pour l’accessibilité et délibérément non diagnostique : il rapporte des observations neutres, jamais un verdict.",
             "p5.onum": "0",
             "p5.olabel": "photo ne quitte l’appareil — l’inférence est entièrement locale, conforme à la LGPD dès la conception",
             "q1.text": "&laquo;&nbsp;J’ai eu l’occasion de travailler avec lui et je peux affirmer sans hésiter que c’est un professionnel remarquable. Il est très compétent, fiable, et toujours engagé à livrer un travail de grande qualité. Au-delà de son expertise technique, il communique clairement, prend la responsabilité de son travail et cherche systématiquement la meilleure solution à chaque problème.&nbsp;&raquo;",
