@@ -14,6 +14,21 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
+    <script>
+      /* Set the theme before first paint so an opt-in skin never flashes
+         the modernist one. A ?theme= in the URL wins over a remembered one. */
+      (function () {
+        try {
+          var t = String(
+            new URL(window.location.href).searchParams.get("theme") ||
+              localStorage.getItem("theme")
+          ).toLowerCase();
+          if (t === "xp") {
+            document.documentElement.setAttribute("data-theme", t);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="alternate" hreflang="en" href="https://danlruiz.github.io/about-me/" />
     <link rel="alternate" hreflang="pt-BR" href="https://danlruiz.github.io/about-me/?lang=pt" />
     <link rel="alternate" hreflang="fr" href="https://danlruiz.github.io/about-me/?lang=fr" />
@@ -244,6 +259,108 @@
         outline: 2px solid var(--color-accent);
         outline-offset: -2px;
       }
+
+      /* — theme picker: a disclosure button over a short list of themes — */
+      /* Hidden on the default theme, which stays as plain as it was; the
+         footer link is the way in. Inside a theme it is the way around. */
+      .theme-pick {
+        position: relative;
+        display: none;
+      }
+      :root[data-theme] .theme-pick {
+        display: flex;
+      }
+      .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.2;
+        padding: 6px 10px;
+        margin: 0;
+        border: 1px solid var(--color-divider);
+        background: transparent;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        cursor: pointer;
+      }
+      .theme-btn:hover {
+        background: color-mix(in srgb, var(--color-text) 7%, transparent);
+        color: var(--color-text);
+      }
+      .theme-dot {
+        flex: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #e3262e,
+          #f58220,
+          #fdd20e,
+          #3ab54a,
+          #1c75bc,
+          #6b2c91,
+          #e3262e
+        );
+      }
+      .theme-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        min-width: 168px;
+        padding: 4px;
+        background: var(--color-bg);
+        border: 1px solid var(--color-divider);
+        box-shadow: 0 8px 24px rgba(32, 30, 29, 0.12);
+      }
+      .theme-menu[hidden] {
+        display: none;
+      }
+      .theme-menu button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        margin: 0;
+        padding: 8px 10px;
+        border: 0;
+        background: transparent;
+        color: var(--color-text);
+        font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        font-size: 13px;
+        text-align: left;
+        cursor: pointer;
+      }
+      .theme-menu button:hover {
+        background: color-mix(in srgb, var(--color-text) 7%, transparent);
+      }
+      .theme-menu button[aria-pressed="true"] {
+        background: var(--color-accent);
+        color: var(--color-bg);
+      }
+      .theme-menu button:focus-visible {
+        outline-offset: -2px;
+      }
+      .theme-menu .theme-dot {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7);
+      }
+      [data-theme-opt="modernist"] .theme-dot {
+        border-radius: 0;
+        background: #ec3013;
+      }
+      [data-theme-opt="xp"] .theme-dot {
+        background: linear-gradient(#1d56c2, #8ec0f0 55%, #6fb535 55%, #2f7a16);
+      }
+      :root[data-theme] .egg-go {
+        display: none;
+      }
       @media (max-width: 640px) {
         .nav a:not(.btn) {
           display: none;
@@ -258,6 +375,21 @@
         .lang button {
           padding: 6px 8px;
           font-size: 11px;
+        }
+        /* Just the swatch on phones; the label stays for screen readers. */
+        .theme-pick {
+          align-self: stretch;
+        }
+        .theme-btn {
+          padding: 6px 8px;
+        }
+        .theme-btn .theme-label {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          white-space: nowrap;
         }
         .nav .btn-primary {
           font-size: 13px;
@@ -572,6 +704,842 @@
           padding-bottom: 0;
         }
       }
+
+      /* ══════════════════════════════════════════════════════════════════
+         Shared by the opt-in themes
+         ══════════════════════════════════════════════════════════════ */
+      :root[data-theme] {
+        overflow-x: clip;
+      }
+
+      /* ══════════════════════════════════════════════════════════════════
+         XP theme
+         An opt-in skin after the early-2000s Luna desktop: a rolling green
+         hill under a blue sky as the wallpaper, the page as a blue-framed
+         window with a title bar, menu bar and status bar, the nav as the
+         taskbar along the bottom with a green start button and a tray
+         clock, beige 3D buttons, task-pane headers, tooltip tags, and the
+         testimonials as balloon tips.
+         Scoped to :root[data-theme="xp"].
+         ══════════════════════════════════════════════════════════════ */
+      .xp-only {
+        display: none;
+      }
+      :root[data-theme="xp"] .xp-only {
+        display: flex;
+      }
+
+      :root[data-theme="xp"] {
+        --xp-face: #ece9d8;
+        --xp-frame: #0831d9;
+        --xp-link: #215dc6;
+        --xp-select: #316ac5;
+        --xp-field: #7f9db9;
+        --xp-tip: #ffffe1;
+        --xp-bar: 40px;
+        --xp-task: linear-gradient(180deg, #5d9cf7 0, #3c81f3 12%, #3376ec 50%, #2a68e0 90%, #1f56c9 100%);
+
+        --color-bg: var(--xp-face);
+        --color-text: #1b1b1b;
+        --color-accent: var(--xp-link);
+        --color-accent-600: #1c4fb0;
+        --color-accent-700: var(--xp-link);
+        --color-divider: #aca899;
+        --color-neutral-100: var(--xp-tip);
+        --color-neutral-800: #000;
+
+        --font-heading: "Trebuchet MS", "DejaVu Sans", system-ui, sans-serif;
+        --font-heading-weight: 700;
+        --font-body: Tahoma, Verdana, "DejaVu Sans", system-ui, sans-serif;
+        --radius-md: 3px;
+      }
+      :root[data-theme="xp"] body {
+        font-size: 14px;
+        padding-bottom: var(--xp-bar);
+        background-color: #2f6fd6;
+      }
+      /* The wallpaper, on a fixed layer rather than background-attachment:
+         fixed, which mobile Safari ignores and would stretch over the
+         whole page. */
+      :root[data-theme="xp"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: #2f6fd6 url("bliss.jpg") center / cover no-repeat;
+      }
+      :root[data-theme="xp"] ::selection {
+        background: var(--xp-select);
+        color: #fff;
+      }
+      :root[data-theme="xp"] :focus-visible {
+        outline: 1px dotted currentColor;
+        outline-offset: 2px;
+      }
+
+      /* — the taskbar, pinned to the bottom — */
+      :root[data-theme="xp"] .nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        height: var(--xp-bar);
+        padding: 0 0 0 0;
+        gap: 4px;
+        border: 0;
+        color: #fff;
+        background: linear-gradient(180deg, #1f2f86 0, #3165c4 3%, #3682e5 6%, #4490e6 10%, #3883e5 12%, #2b71e0 15%, #2663da 18%, #235bd6 20%, #2258d5 23%, #2157d6 38%, #245ddb 54%, #2562df 86%, #245fdc 89%, #2158d4 92%, #1d4ec0 95%, #1941a5 98%);
+      }
+      /* The start button, with a little four-pane flag. */
+      :root[data-theme="xp"] .nav-brand {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: 6px;
+        padding: 0 24px 0 12px;
+        border-radius: 0 14px 14px 0;
+        font-style: italic;
+        font-size: 17px;
+        white-space: nowrap;
+        text-shadow: 1px 1px 2px rgba(10, 50, 10, 0.75);
+        background: linear-gradient(180deg, #67c167 0, #3f9f3f 10%, #389838 45%, #2f8a2f 85%, #246f24 100%);
+        box-shadow:
+          inset 0 1px rgba(255, 255, 255, 0.35),
+          inset -2px 0 3px rgba(0, 0, 0, 0.25),
+          2px 0 4px rgba(0, 0, 0, 0.35);
+      }
+      :root[data-theme="xp"] .nav-brand::before {
+        content: "";
+        flex: none;
+        width: 20px;
+        height: 20px;
+        background:
+          linear-gradient(#f05a28, #f05a28) 0 0 / 9px 9px no-repeat,
+          linear-gradient(#7cc242, #7cc242) 11px 0 / 9px 9px no-repeat,
+          linear-gradient(#2f8ae0, #2f8ae0) 0 11px / 9px 9px no-repeat,
+          linear-gradient(#fcd116, #fcd116) 11px 11px / 9px 9px no-repeat;
+        transform: skew(-8deg, -4deg);
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+      }
+      /* Taskbar buttons. */
+      :root[data-theme="xp"] .nav a:not(.btn),
+      :root[data-theme="xp"] .theme-btn,
+      :root[data-theme="xp"] .nav .btn-primary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 30px;
+        min-height: 0;
+        padding: 0 14px 0 10px;
+        border: 1px solid #1b4fb7;
+        border-radius: 3px;
+        background: var(--xp-task);
+        color: #fff;
+        font-family: var(--font-body);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        letter-spacing: 0;
+        text-transform: none;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 1px 1px rgba(255, 255, 255, 0.3);
+      }
+      :root[data-theme="xp"] .nav a:not(.btn) {
+        min-width: 116px;
+      }
+      :root[data-theme="xp"] .nav a:not(.btn)::before {
+        content: "";
+        flex: none;
+        width: 16px;
+        height: 16px;
+        background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M1.5 4.5h5l1.5 1.5h6.5v7.5h-13z' fill='%23f6d16b' stroke='%23c8a038'/><path d='M2 7h12' stroke='%23fff3c4'/></svg>");
+      }
+      :root[data-theme="xp"] .nav a:not(.btn):hover,
+      :root[data-theme="xp"] .theme-btn:hover,
+      :root[data-theme="xp"] .nav .btn-primary:hover {
+        color: #fff;
+        background: linear-gradient(180deg, #7db6ff 0, #53a3ff 12%, #4a92f6 50%, #3d7fec 100%);
+      }
+      :root[data-theme="xp"] .theme-btn[aria-expanded="true"] {
+        background: #1e52b7;
+        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.45);
+      }
+      :root[data-theme="xp"] .theme-pick {
+        margin-left: auto;
+      }
+      :root[data-theme="xp"] .nav .btn-primary {
+        order: 1;
+      }
+      /* The tray: language buttons and the clock, sharing one well. */
+      :root[data-theme="xp"] .lang,
+      :root[data-theme="xp"] .xp-clock {
+        order: 2;
+        align-self: stretch;
+        align-items: center;
+        border: 0;
+        border-radius: 0;
+        background: linear-gradient(180deg, #0c59b9 1%, #139ee9 6%, #18b5f2 10%, #139beb 14%, #1290e8 19%, #0d8dea 63%, #0d9ff1 81%, #0f9eed 88%, #119be9 91%, #1392e2 94%, #137ed7 97%, #095bc9 100%);
+      }
+      :root[data-theme="xp"] .lang {
+        margin-left: 2px;
+        padding-left: 8px;
+        border-left: 1px solid #1042af;
+        box-shadow: inset 1px 0 1px #18bbff;
+      }
+      :root[data-theme="xp"] .lang button {
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 400;
+        padding: 3px 6px;
+        border-radius: 2px;
+      }
+      :root[data-theme="xp"] .lang button + button {
+        border-left: 0;
+      }
+      :root[data-theme="xp"] .lang button:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+      :root[data-theme="xp"] .lang button[aria-pressed="true"] {
+        background: rgba(0, 30, 110, 0.35);
+        box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.35);
+        color: #fff;
+      }
+      :root[data-theme="xp"] .xp-clock {
+        margin-left: -4px;
+        padding: 0 14px 0 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        color: #fff;
+      }
+      /* The theme menu opens upward, like a start menu. */
+      :root[data-theme="xp"] .theme-menu {
+        top: auto;
+        bottom: calc(100% + 5px);
+        padding: 10px 2px 2px;
+        border: 1px solid #0b4fc3;
+        border-radius: 6px 6px 0 0;
+        background:
+          linear-gradient(180deg, #2b6be0, #0b4fc3) top / 100% 8px no-repeat,
+          #fff;
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.45);
+      }
+      :root[data-theme="xp"] .theme-menu button {
+        font-family: var(--font-body);
+        font-weight: 400;
+        color: #000;
+      }
+      :root[data-theme="xp"] .theme-menu button:hover,
+      :root[data-theme="xp"] .theme-menu button[aria-pressed="true"] {
+        background: var(--xp-select);
+        color: #fff;
+      }
+
+      /* — beige 3D buttons — */
+      :root[data-theme="xp"] .btn {
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 13px;
+        color: #000;
+        min-height: 30px;
+        padding: 5px 18px;
+        border: 1px solid #003c74;
+        border-radius: 3px;
+        background: linear-gradient(180deg, #fff 0, #ecebe6 86%, #d6d0c5 100%);
+      }
+      :root[data-theme="xp"] .btn:hover {
+        background: linear-gradient(180deg, #fff 0, #ecebe6 86%, #d6d0c5 100%);
+        box-shadow:
+          inset -1px 1px #fff0cf,
+          inset 1px 2px #fdd889,
+          inset -2px 2px #fbc761,
+          inset 2px -2px #e5a01a;
+      }
+      :root[data-theme="xp"] .btn:active {
+        background: linear-gradient(180deg, #cdcac3 0, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+      }
+      :root[data-theme="xp"] .btn:focus-visible {
+        outline-offset: -5px;
+      }
+      /* The default button wears the blue ring. */
+      :root[data-theme="xp"] .hero .btn-secondary {
+        box-shadow:
+          inset -1px 1px #cee7ff,
+          inset 1px 2px #98b8ea,
+          inset -2px 2px #bcd4f6,
+          inset 1px -1px #89ade4,
+          inset 2px -2px #89ade4;
+      }
+      :root[data-theme="xp"] .hero .btn-ghost {
+        min-height: 0;
+        padding: 5px 4px;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        color: var(--xp-link);
+        text-decoration: underline;
+      }
+
+      /* — the window — */
+      :root[data-theme="xp"] .stage {
+        position: relative;
+        max-width: 1080px;
+        margin-top: 28px;
+        margin-bottom: 8px;
+        background: var(--xp-face);
+        border: 3px solid var(--xp-frame);
+        border-top: 0;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 4px 8px 24px rgba(0, 20, 70, 0.45);
+      }
+      :root[data-theme="xp"] .xp-titlebar {
+        align-items: center;
+        gap: 6px;
+        height: 30px;
+        margin: 0 calc(-3px - var(--edge));
+        padding: 0 5px 0 8px;
+        border-radius: 8px 8px 0 0;
+        background: linear-gradient(180deg, #0997ff 0, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7 100%);
+        color: #fff;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 13px;
+        text-shadow: 1px 1px #0f1089;
+        user-select: none;
+      }
+      :root[data-theme="xp"] .xp-titlebar::before {
+        content: "";
+        flex: none;
+        width: 16px;
+        height: 16px;
+        background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><rect x='2.5' y='1.5' width='11' height='13' fill='%23fff' stroke='%23597db8'/><rect x='3' y='2' width='10' height='3' fill='%233a7bd5'/><path d='M5 8h6M5 10h6M5 12h4' stroke='%2393a7c9'/></svg>");
+      }
+      :root[data-theme="xp"] .xp-titlebar span {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      :root[data-theme="xp"] .xp-titlebar i {
+        flex: none;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        border-radius: 3px;
+        background:
+          var(--glyph) center / 21px 21px no-repeat,
+          radial-gradient(circle at 90% 90%, #0054e9 0, #2263d5 55%, #4479e4 70%, #a3bbec 90%, #fff 100%);
+      }
+      :root[data-theme="xp"] .xp-titlebar i:nth-of-type(1) {
+        --glyph: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='21' height='21'><rect x='5' y='13' width='7' height='3' fill='%23fff'/></svg>");
+      }
+      :root[data-theme="xp"] .xp-titlebar i:nth-of-type(2) {
+        --glyph: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='21' height='21'><rect x='5.5' y='5.5' width='10' height='10' fill='none' stroke='%23fff'/><rect x='5' y='5' width='11' height='3' fill='%23fff'/></svg>");
+      }
+      :root[data-theme="xp"] .xp-titlebar i:nth-of-type(3) {
+        --glyph: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='21' height='21'><path d='M6.5 6.5l8 8M14.5 6.5l-8 8' stroke='%23fff' stroke-width='2.2'/></svg>");
+        margin-left: 2px;
+        background:
+          var(--glyph) center / 21px 21px no-repeat,
+          radial-gradient(circle at 90% 90%, #cc4600 0, #dc6527 55%, #cd7546 70%, #ffccb2 90%, #fff 100%);
+      }
+      :root[data-theme="xp"] .xp-menubar {
+        gap: 2px;
+        margin: 0 calc(-1 * var(--edge));
+        padding: 2px 6px;
+        overflow: hidden;
+        border-bottom: 1px solid #aca899;
+        box-shadow: 0 1px #fff;
+        font-size: 12px;
+        line-height: 18px;
+        white-space: nowrap;
+        user-select: none;
+      }
+      :root[data-theme="xp"] .xp-menubar span {
+        padding: 0 7px;
+      }
+      :root[data-theme="xp"] .xp-statusbar {
+        justify-content: space-between;
+        gap: 12px;
+        margin: var(--leading) calc(-1 * var(--edge)) 0;
+        padding: 3px 8px;
+        border-top: 1px solid #aca899;
+        box-shadow: inset 0 1px #fff;
+        font-size: 12px;
+        line-height: 18px;
+        user-select: none;
+      }
+      :root[data-theme="xp"] .xp-statusbar span + span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 140px;
+        padding-left: 8px;
+        border-left: 1px solid #aca899;
+        box-shadow: inset 1px 0 #fff;
+      }
+      :root[data-theme="xp"] .xp-statusbar span + span::before {
+        content: "";
+        width: 16px;
+        height: 16px;
+        background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='6.5' fill='%2368a8ea' stroke='%23215dc6'/><path d='M4 4.5c2 .5 3 2.5 2 4.5s-2.5 2.5-3 3.5M9.5 9c1.5-.5 3 0 3.5 1.5' fill='none' stroke='%2365b84a' stroke-width='2'/><path d='M1.5 8h13M8 1.5c-3 3-3 10 0 13M8 1.5c3 3 3 10 0 13' fill='none' stroke='%23fff' stroke-width='.7' opacity='.8'/></svg>");
+      }
+
+      /* Task-pane headers for the kickers. */
+      :root[data-theme="xp"] .kicker {
+        display: inline-block;
+        min-width: min(240px, 100%);
+        padding: 5px 14px;
+        border-radius: 5px 5px 0 0;
+        background: linear-gradient(90deg, #fff 0, #c6d3f7 100%);
+        color: var(--xp-link);
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-transform: none;
+        margin-bottom: var(--half);
+      }
+
+      /* — hero — */
+      :root[data-theme="xp"] .hero {
+        padding: calc(2 * var(--leading)) 0;
+      }
+      :root[data-theme="xp"] .display {
+        color: #10308a;
+        letter-spacing: -0.01em;
+        margin-left: 0;
+      }
+      :root[data-theme="xp"] .hero .facts {
+        color: #4d4d4d;
+      }
+      /* An instant-messenger style "online" status. */
+      :root[data-theme="xp"] .avail {
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: none;
+        color: #1c6b12;
+      }
+      :root[data-theme="xp"] .avail::before {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d6fbb3 0, #3fae1f 55%, #1f7a10 100%);
+        box-shadow: 0 0 0 1px #2b7a1b;
+      }
+
+      /* Etched separators. */
+      :root[data-theme="xp"] .rule2 {
+        background: #aca899;
+        box-shadow: 0 1px #fff;
+        height: 1px;
+      }
+
+      /* — work: a white panel per project, its meta in a task pane — */
+      :root[data-theme="xp"] .project {
+        background: #fff;
+        border: 1px solid var(--xp-field);
+        padding: 20px;
+        margin-top: var(--half);
+        gap: var(--leading) clamp(20px, 4vw, 40px);
+      }
+      :root[data-theme="xp"] .project + .project {
+        border-top: 1px solid var(--xp-field);
+        margin-top: 16px;
+      }
+      :root[data-theme="xp"] .project > div:first-child {
+        overflow: hidden;
+        padding-bottom: 10px;
+        border: 1px solid #fff;
+        border-radius: 5px 5px 0 0;
+        background: #d6dff7;
+        box-shadow: 0 0 0 1px #b6c5ec;
+      }
+      :root[data-theme="xp"] .p-num {
+        margin: 0 0 10px;
+        padding: 4px 12px;
+        background: linear-gradient(90deg, #fff 0, #c6d3f7 100%);
+        color: var(--xp-link);
+        font-family: var(--font-body);
+        font-size: 13px;
+      }
+      :root[data-theme="xp"] .p-meta {
+        padding: 0 12px;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-transform: none;
+        color: #1b1b1b;
+      }
+      :root[data-theme="xp"] .p-meta a {
+        color: var(--xp-link);
+      }
+      :root[data-theme="xp"] .p-title {
+        font-size: 22px;
+        color: #10308a;
+      }
+      :root[data-theme="xp"] .p-title a {
+        text-decoration-thickness: 1px;
+      }
+      :root[data-theme="xp"] .p-copy {
+        color: #2b2b2b;
+      }
+      :root[data-theme="xp"] .o-num {
+        font-size: clamp(26px, 3vw, 32px);
+        white-space: nowrap;
+        color: var(--xp-link);
+      }
+      :root[data-theme="xp"] .o-label {
+        letter-spacing: 0.02em;
+        font-size: 12px;
+      }
+      /* Tags as tooltips. */
+      :root[data-theme="xp"] .tag {
+        padding: 2px 7px;
+        border: 1px solid #000;
+        background: var(--xp-tip);
+        color: #000;
+        font-size: 11px;
+        letter-spacing: 0;
+      }
+
+      /* — testimonials as balloon tips, with Clippy — */
+      :root[data-theme="xp"] .quotes blockquote,
+      :root[data-theme="xp"] .xp-clippy-tip {
+        position: relative;
+        border: 1px solid #000;
+        border-radius: 8px;
+        background-color: var(--xp-tip);
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.18);
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: 0;
+        color: #000;
+      }
+      :root[data-theme="xp"] .quotes blockquote {
+        max-width: none;
+        padding: 14px 18px 14px 46px;
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='9' fill='%231c5fd1' stroke='%23fff'/><circle cx='10' cy='5.8' r='1.5' fill='%23fff'/><rect x='8.8' y='8.4' width='2.4' height='7' rx='.6' fill='%23fff'/></svg>");
+        background-position: 14px 16px;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        text-indent: 0;
+      }
+      /* Balloon tails: a black triangle with a yellow one just inside it,
+         so the border runs round the tail. */
+      :root[data-theme="xp"] .quotes blockquote::before,
+      :root[data-theme="xp"] .quotes blockquote::after,
+      :root[data-theme="xp"] .xp-clippy-tip::before,
+      :root[data-theme="xp"] .xp-clippy-tip::after {
+        content: "";
+        position: absolute;
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+      }
+      :root[data-theme="xp"] .quotes blockquote::before,
+      :root[data-theme="xp"] .xp-clippy-tip::before {
+        width: 22px;
+        height: 16px;
+        background: #000;
+      }
+      :root[data-theme="xp"] .quotes blockquote::after,
+      :root[data-theme="xp"] .xp-clippy-tip::after {
+        width: 19px;
+        height: 14px;
+        background: var(--xp-tip);
+      }
+      /* Each quote's tail points down at whoever said it... */
+      :root[data-theme="xp"] .quotes blockquote::before {
+        left: 32px;
+        bottom: -16px;
+      }
+      :root[data-theme="xp"] .quotes blockquote::after {
+        left: 33px;
+        bottom: -14px;
+      }
+      /* ...while Clippy pops up in the corner of the screen, where he
+         always lived: on a timer, once per visit (see the script). He
+         waits hidden until the script adds .is-in, and .is-out sends him
+         back down. */
+      :root[data-theme="xp"] .xp-clippy {
+        position: fixed;
+        right: 20px;
+        bottom: calc(var(--xp-bar) + 14px);
+        z-index: 40;
+        display: flex;
+        align-items: flex-start;
+        gap: 26px;
+        visibility: hidden;
+      }
+      :root[data-theme="xp"] .xp-clippy[hidden] {
+        display: none;
+      }
+      :root[data-theme="xp"] .xp-clippy.is-in {
+        visibility: visible;
+      }
+      :root[data-theme="xp"] .xp-clippy-img {
+        flex: none;
+        width: 150px;
+        height: auto;
+        margin-top: 4px;
+        transform-origin: 50% 100%;
+        filter: drop-shadow(3px 4px 4px rgba(0, 0, 0, 0.25));
+      }
+      :root[data-theme="xp"] .xp-clippy.is-in .xp-clippy-img {
+        animation:
+          xp-clippy-pop 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both,
+          xp-clippy-sway 4s ease-in-out 0.9s infinite;
+      }
+      :root[data-theme="xp"] .xp-clippy.is-in .xp-clippy-tip {
+        animation: xp-clippy-tip 0.3s ease-out 0.55s both;
+      }
+      :root[data-theme="xp"] .xp-clippy.is-out .xp-clippy-img {
+        animation: xp-clippy-pop 0.35s ease-in reverse both;
+      }
+      :root[data-theme="xp"] .xp-clippy.is-out .xp-clippy-tip {
+        animation: xp-clippy-tip 0.2s ease-in reverse both;
+      }
+      @keyframes xp-clippy-pop {
+        from {
+          opacity: 0;
+          transform: translateY(40%) scale(0.2);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes xp-clippy-sway {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        30% {
+          transform: rotate(-3deg);
+        }
+        60% {
+          transform: rotate(2deg);
+        }
+      }
+      @keyframes xp-clippy-tip {
+        from {
+          opacity: 0;
+          transform: translateY(6px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      :root[data-theme="xp"] .xp-clippy-tip {
+        width: max-content;
+        max-width: min(340px, calc(100vw - 230px));
+        padding: 14px 18px;
+        transform-origin: 100% 30%;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip::before {
+        right: -22px;
+        top: 34px;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip::after {
+        right: -20px;
+        top: 35px;
+        width: 21px;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip p {
+        margin: 0;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip p:first-child {
+        font-weight: 700;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip ul {
+        display: grid;
+        gap: 2px;
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip li > * {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        padding: 2px 0;
+        border: 0;
+        background: none;
+        color: #000;
+        font: inherit;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip li > *::before {
+        content: "";
+        flex: none;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d4e6ff 0, #3a7bea 55%, #1c4fb0 100%);
+        box-shadow: 0 0 0 1px #1c4fb0;
+      }
+      :root[data-theme="xp"] .xp-clippy-tip li > *:hover {
+        color: var(--xp-link);
+        text-decoration: underline;
+      }
+      :root[data-theme="xp"] .quotes figcaption {
+        margin-top: 24px;
+        padding-left: 8px;
+        font-weight: 700;
+        font-size: 13px;
+        color: #1b1b1b;
+      }
+      :root[data-theme="xp"] .quotes .q-src {
+        font-weight: 400;
+        font-size: 12px;
+        letter-spacing: 0;
+        text-transform: none;
+        color: #555;
+      }
+
+      /* — about, as a details list — */
+      :root[data-theme="xp"] .facts-list {
+        border: 1px solid var(--xp-field);
+        background: #fff;
+      }
+      :root[data-theme="xp"] .facts-list dt,
+      :root[data-theme="xp"] .facts-list dd {
+        padding: 4px 10px;
+        border-bottom: 1px solid #f1efe2;
+      }
+      :root[data-theme="xp"] .facts-list dt {
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--xp-link);
+      }
+      :root[data-theme="xp"] .facts-list dd {
+        font-size: 14px;
+      }
+      :root[data-theme="xp"] .prose {
+        color: #2b2b2b;
+      }
+
+      /* — close + footer, on the desktop — */
+      :root[data-theme="xp"] .close {
+        background: transparent;
+        color: #fff;
+      }
+      :root[data-theme="xp"] .close .wrap {
+        padding-top: calc(2.5 * var(--leading));
+        padding-bottom: calc(2 * var(--leading));
+      }
+      :root[data-theme="xp"] .close h2 {
+        text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
+      }
+      :root[data-theme="xp"] .close .btn-ghost {
+        color: #000;
+      }
+      :root[data-theme="xp"] footer {
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      }
+      :root[data-theme="xp"] footer a:hover {
+        color: #fff;
+        text-decoration-thickness: 2px;
+      }
+
+      @media (max-width: 1140px) {
+        :root[data-theme="xp"] .stage {
+          margin-inline: 22px;
+        }
+      }
+      /* Below this the taskbar buttons stop fitting beside the tray. */
+      @media (max-width: 900px) {
+        :root[data-theme="xp"] .nav a:not(.btn) {
+          display: none;
+        }
+      }
+      @media (max-width: 640px) {
+        :root[data-theme="xp"] .nav-brand {
+          padding-right: 18px;
+          font-size: 15px;
+        }
+        :root[data-theme="xp"] .theme-btn {
+          padding: 0 8px;
+        }
+        :root[data-theme="xp"] .stage {
+          margin: 12px 8px 8px;
+        }
+        :root[data-theme="xp"] .xp-statusbar span + span {
+          min-width: 0;
+        }
+      }
+      /* On narrow screens a corner pop-up would cover the copy, so Clippy
+         stands still above the testimonials instead, his balloon pointing
+         up at him. */
+      @media (max-width: 720px) {
+        :root[data-theme="xp"] .xp-clippy {
+          position: static;
+          flex-direction: column-reverse;
+          align-items: stretch;
+          gap: 10px;
+          visibility: visible;
+        }
+        :root[data-theme="xp"] .xp-clippy-img {
+          align-self: flex-end;
+          width: 130px;
+          margin: 0 12px 0 0;
+          filter: none;
+        }
+        :root[data-theme="xp"] .xp-clippy.is-in .xp-clippy-img,
+        :root[data-theme="xp"] .xp-clippy.is-in .xp-clippy-tip {
+          animation: none;
+        }
+        :root[data-theme="xp"] .xp-clippy-tip {
+          width: auto;
+          max-width: none;
+        }
+        :root[data-theme="xp"] .xp-clippy-tip::before,
+        :root[data-theme="xp"] .xp-clippy-tip::after {
+          clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+        :root[data-theme="xp"] .xp-clippy-tip::before {
+          right: 60px;
+          top: -16px;
+        }
+        :root[data-theme="xp"] .xp-clippy-tip::after {
+          right: 61px;
+          top: -13px;
+          width: 19px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        :root[data-theme="xp"] .xp-clippy .xp-clippy-img,
+        :root[data-theme="xp"] .xp-clippy .xp-clippy-tip {
+          animation: none !important;
+        }
+      }
+      @media (max-width: 480px) {
+        :root[data-theme="xp"] .nav .btn-primary,
+        :root[data-theme="xp"] .xp-clock {
+          display: none;
+        }
+        :root[data-theme="xp"] .lang {
+          padding: 0 4px;
+        }
+      }
+      @media (max-width: 360px) {
+        :root[data-theme="xp"] .nav-brand {
+          gap: 6px;
+          padding: 0 14px 0 8px;
+          font-size: 13px;
+        }
+      }
     </style>
   </head>
 
@@ -581,15 +1549,38 @@
       <a href="#work" data-i18n="nav.work">Work</a>
       <a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a>
       <a href="#about" data-i18n="nav.about">About</a>
+      <div class="theme-pick">
+        <button type="button" class="theme-btn" aria-expanded="false" aria-controls="theme-menu">
+          <span class="theme-dot" aria-hidden="true"></span>
+          <span class="theme-label" data-i18n="theme.label">Theme</span>
+        </button>
+        <div class="theme-menu" id="theme-menu" hidden>
+          <button type="button" data-theme-opt="modernist" aria-pressed="true">
+            <span class="theme-dot" aria-hidden="true"></span>
+            <span data-i18n="theme.modernist">Modernist</span>
+          </button>
+          <button type="button" data-theme-opt="xp" aria-pressed="false">
+            <span class="theme-dot" aria-hidden="true"></span>
+            <span>XP</span>
+          </button>
+        </div>
+      </div>
       <div class="lang" role="group" aria-label="Language / Idioma / Langue">
         <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
         <button type="button" data-lang-btn="pt" aria-pressed="false">PT</button>
         <button type="button" data-lang-btn="fr" aria-pressed="false">FR</button>
       </div>
       <a class="btn btn-primary" href="mailto:daniel.lacaz.ruiz@gmail.com" data-i18n="nav.cta">Get in touch</a>
+      <span class="xp-clock xp-only" aria-hidden="true"></span>
     </nav>
 
-    <div class="wrap">
+    <div class="wrap stage">
+      <!-- XP theme only: the window's title bar and menu bar. -->
+      <div class="xp-titlebar xp-only" aria-hidden="true">
+        <span>Daniel Lacaz Ruiz</span><i></i><i></i><i></i>
+      </div>
+      <div class="xp-menubar xp-only" aria-hidden="true" data-i18n="xp.menu"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
+
       <section class="hero">
         <span class="kicker">Daniel Lacaz Ruiz</span>
         <h1 class="display" data-i18n="hero.display">
@@ -701,7 +1692,7 @@
           </div>
           <div>
             <h2 class="p-title">
-              <a href="https://escoliose.org/" target="_blank" rel="noopener">Aligna</a>
+              <a href="https://aligna.escoliose.org/" target="_blank" rel="noopener">Aligna</a>
             </h2>
             <p class="p-copy" data-i18n="p5.copy">
               A posture and body-symmetry tracker that reads a single back-view
@@ -715,7 +1706,7 @@
             </p>
             <div class="p-outcome">
               <p class="o-num" data-i18n="p5.onum">0</p>
-              <p class="o-label" data-i18n="p5.olabel">photos leave the device — inference is fully local, so it is LGPD-compliant by design</p>
+              <p class="o-label" data-i18n="p5.olabel">photos leave the device: inference is fully local, so it is LGPD-compliant by design</p>
             </div>
             <div class="p-tags">
               <span class="tag">TensorFlow</span>
@@ -797,6 +1788,19 @@
       <section class="quotes" id="testimonials">
         <span class="kicker" data-i18n="k.quotes">What people say</span>
         <div class="qgrid">
+          <!-- XP theme only: Clippy and his balloon. A corner pop-up on
+               wide screens, standing above the testimonials on narrow ones. -->
+          <div class="xp-clippy xp-only">
+            <div class="xp-clippy-tip">
+              <p data-i18n="xp.clippy">It looks like you’re hiring a developer.</p>
+              <p data-i18n="xp.help">Would you like help?</p>
+              <ul>
+                <li><a href="mailto:daniel.lacaz.ruiz@gmail.com" data-i18n="xp.yes">Get help with hiring the developer</a></li>
+                <li><button type="button" data-clippy-no data-i18n="xp.no">Just keep reading without help</button></li>
+              </ul>
+            </div>
+            <img class="xp-clippy-img" src="clippy.png" alt="" width="360" height="335" />
+          </div>
           <figure>
             <blockquote data-i18n="q1.text">
               &ldquo;I had the opportunity to work with him and can confidently
@@ -855,6 +1859,11 @@
           </div>
         </div>
       </section>
+
+      <!-- XP theme only: the window's status bar. -->
+      <div class="xp-statusbar xp-only" aria-hidden="true">
+        <span data-i18n="xp.done">Done</span><span>Internet</span>
+      </div>
     </div>
 
     <section class="close" id="contact">
@@ -875,6 +1884,9 @@
         <a href="https://github.com/danlruiz/" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/daniel-lacaz-ruiz/" target="_blank" rel="noopener">LinkedIn</a>
         <span class="spacer">UTC−3</span>
+        <!-- The quiet way in and out of the XP theme. -->
+        <a class="egg-go" href="?theme=xp" data-theme-go="xp" data-i18n="egg.go">Try the 2003 edition</a>
+        <a class="egg-back xp-only" href="?theme=modernist" data-theme-go="modernist" data-i18n="egg.back">Back to today</a>
       </footer>
     </div>
 
@@ -926,7 +1938,7 @@
             "p5.role": "Trabalho contratado · Líder: ML, mobile e web",
             "p5.copy": "Um monitor de postura e simetria corporal que lê uma única foto de costas. Treinei um modelo de keypoints que posiciona oito pontos anatômicos (pescoço, ombros, cintura, quadris, pelve) e deriva o nivelamento de ombros e quadris, a inclinação do tronco e a assimetria da cintura, acompanhando tudo ao longo do tempo. Construí o pipeline inteiro de ponta a ponta, da rotulagem automática fraca e randomização de fundo ao treino, à quantização e aos dois runtimes. Em português primeiro, pensado para acessibilidade e deliberadamente não diagnóstico: reporta observações neutras, nunca um veredito.",
             "p5.onum": "0",
-            "p5.olabel": "fotos saem do aparelho — a inferência é totalmente local, em conformidade com a LGPD desde o projeto",
+            "p5.olabel": "fotos saem do aparelho: a inferência é totalmente local, em conformidade com a LGPD desde o projeto",
             "q1.text": "&ldquo;Tive a oportunidade de trabalhar com ele e posso dizer com confiança que é um profissional excepcional. É altamente qualificado, confiável e sempre comprometido em entregar resultados de alta qualidade. Além da sua expertise técnica, comunica com clareza, assume a responsabilidade pelo próprio trabalho e busca consistentemente a melhor solução para cada desafio.&rdquo;",
             "q1.src": "Recomendação no LinkedIn, julho de 2026 · foi gestor direto do Daniel · traduzida do inglês",
             "q2.text": "&ldquo;Daniel é uma pessoa muito dedicada e inovadora, que demonstrou vontade e capacidade de aprender. Durante seu período na Noki Systems, provou sua habilidade de aprender no ritmo do trabalho e implementar funcionalidades críticas para o produto.&rdquo;",
@@ -939,7 +1951,17 @@
             "a.alsoval": "Integração de LLM (OpenAI, Gemini), pagamentos (Stripe, PIX, boleto), TensorFlow",
             "a.bio": "Bacharelado (Honours) em Biologia pela McMaster University, com background de pesquisa em bioinformática que resultou em trabalhos publicados sobre motivos de sequência de baixa complexidade em regiões não traduzidas e sobre correlação gênica entre subtipos de câncer de mama.",
             "c.title": '<span class="line">Tem um projeto ou uma vaga em mente?</span>',
-            "c.email": "E-mail: daniel.lacaz.ruiz@gmail.com"
+            "c.email": "E-mail: daniel.lacaz.ruiz@gmail.com",
+            "theme.label": "Tema",
+            "theme.modernist": "Modernista",
+            "egg.go": "Experimente a edição 2003",
+            "egg.back": "Voltar para hoje",
+            "xp.menu": "<span>Arquivo</span><span>Editar</span><span>Exibir</span><span>Favoritos</span><span>Ferramentas</span><span>Ajuda</span>",
+            "xp.clippy": "Parece que você está contratando um desenvolvedor.",
+            "xp.help": "Deseja obter ajuda?",
+            "xp.yes": "Obter ajuda para contratar o desenvolvedor",
+            "xp.no": "Apenas continuar lendo sem ajuda",
+            "xp.done": "Concluído"
           },
 
           fr: {
@@ -983,7 +2005,7 @@
             "p5.role": "Mission client · Responsable : ML, mobile et web",
             "p5.copy": "Un suivi de posture et de symétrie corporelle qui lit une seule photo de dos. J’ai entraîné un modèle de points clés qui place huit repères anatomiques (nuque, épaules, taille, hanches, bassin) et en déduit l’horizontalité des épaules et des hanches, l’inclinaison du tronc et l’asymétrie de la taille, puis suit ces mesures dans le temps. J’ai construit tout le pipeline de bout en bout, de l’étiquetage automatique faible et la randomisation d’arrière-plan jusqu’à l’entraînement, la quantification et les deux runtimes. En portugais d’abord, pensé pour l’accessibilité et délibérément non diagnostique : il rapporte des observations neutres, jamais un verdict.",
             "p5.onum": "0",
-            "p5.olabel": "photo ne quitte l’appareil — l’inférence est entièrement locale, conforme à la LGPD dès la conception",
+            "p5.olabel": "photo ne quitte l’appareil&nbsp;: l’inférence est entièrement locale, conforme à la LGPD dès la conception",
             "q1.text": "&laquo;&nbsp;J’ai eu l’occasion de travailler avec lui et je peux affirmer sans hésiter que c’est un professionnel remarquable. Il est très compétent, fiable, et toujours engagé à livrer un travail de grande qualité. Au-delà de son expertise technique, il communique clairement, prend la responsabilité de son travail et cherche systématiquement la meilleure solution à chaque problème.&nbsp;&raquo;",
             "q1.src": "Recommandation LinkedIn, juillet 2026 · a encadré Daniel directement · traduite de l’anglais",
             "q2.text": "&laquo;&nbsp;Daniel est quelqu’un de très investi et inventif, qui a démontré son envie et sa capacité d’apprendre. Pendant son passage chez Noki Systems, il a prouvé sa capacité à apprendre sur le terrain et à implémenter des fonctionnalités critiques pour le produit.&nbsp;&raquo;",
@@ -996,7 +2018,17 @@
             "a.alsoval": "Intégration de LLM (OpenAI, Gemini), paiements (Stripe, PIX, boleto), TensorFlow",
             "a.bio": "Licence (avec mention Honours) en biologie de l’université McMaster, avec un parcours de recherche en bio-informatique ayant donné lieu à des publications sur les motifs de séquence de faible complexité dans les régions non traduites et sur la corrélation génique entre sous-types de cancer du sein.",
             "c.title": '<span class="line">Un projet ou un poste en tête&nbsp;?</span>',
-            "c.email": "E-mail : daniel.lacaz.ruiz@gmail.com"
+            "c.email": "E-mail : daniel.lacaz.ruiz@gmail.com",
+            "theme.label": "Thème",
+            "theme.modernist": "Moderniste",
+            "egg.go": "Essayez l’édition 2003",
+            "egg.back": "Retour à aujourd’hui",
+            "xp.menu": "<span>Fichier</span><span>Edition</span><span>Affichage</span><span>Favoris</span><span>Outils</span><span>?</span>",
+            "xp.clippy": "On dirait que vous recrutez un développeur.",
+            "xp.help": "Voulez-vous de l’aide&nbsp;?",
+            "xp.yes": "Obtenir de l’aide pour recruter le développeur",
+            "xp.no": "Continuer à lire sans aide",
+            "xp.done": "Terminé"
           }
         };
 
@@ -1009,6 +2041,17 @@
         Array.prototype.forEach.call(nodes, function (el) {
           EN[el.getAttribute("data-i18n")] = el.innerHTML;
         });
+
+        /* The XP taskbar's tray clock, in the visitor's own time. */
+        var clock = document.querySelector(".xp-clock");
+        function tick() {
+          if (!clock) return;
+          clock.textContent = new Date().toLocaleTimeString(document.documentElement.lang || "en", {
+            hour: "numeric",
+            minute: "2-digit"
+          });
+        }
+        setInterval(tick, 15000);
 
         function normalize(value) {
           if (!value) return null;
@@ -1033,6 +2076,7 @@
           document.title = dict["meta.title"] || EN["meta.title"];
           if (descEl) descEl.content = dict["meta.desc"] || EN["meta.desc"];
           document.documentElement.lang = TAGS[lang];
+          tick();
 
           Array.prototype.forEach.call(
             document.querySelectorAll("[data-lang-btn]"),
@@ -1084,6 +2128,121 @@
             });
           }
         );
+
+        /* Clippy pops up a few seconds into the XP theme, once per visit:
+           "no thanks" sends him away until the tab is closed. */
+        var clippy = document.querySelector(".xp-clippy");
+        var clippyTimer = null;
+
+        function clippyGone() {
+          try {
+            return sessionStorage.getItem("clippy") === "dismissed";
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function armClippy(theme) {
+          if (!clippy) return;
+          if (clippyGone()) {
+            clippy.hidden = true;
+            return;
+          }
+          if (theme !== "xp" || clippyTimer || clippy.classList.contains("is-in")) return;
+          clippyTimer = setTimeout(function () {
+            clippy.classList.add("is-in");
+          }, 3000);
+        }
+
+        if (clippy) {
+          clippy.querySelector("[data-clippy-no]").addEventListener("click", function () {
+            try {
+              sessionStorage.setItem("clippy", "dismissed");
+            } catch (e) {}
+            clippy.classList.add("is-out");
+            setTimeout(function () {
+              clippy.hidden = true;
+            }, 400);
+          });
+        }
+
+        /* Theme. The inline script in <head> already set data-theme before
+           first paint; this syncs the picker and handles choices. Like
+           ?lang=, a choice rewrites ?theme= so the look is shareable.
+           Modernist is the default and carries no attribute or param. */
+        var THEMES = ["modernist", "xp"];
+        var root = document.documentElement;
+        var pick = document.querySelector(".theme-pick");
+        var themeBtn = pick && pick.querySelector(".theme-btn");
+        var themeMenu = pick && pick.querySelector(".theme-menu");
+        var themeOpts = pick ? pick.querySelectorAll("[data-theme-opt]") : [];
+
+        function applyTheme(theme, fromUser) {
+          if (THEMES.indexOf(theme) < 0) theme = "modernist";
+          if (theme === "modernist") root.removeAttribute("data-theme");
+          else root.setAttribute("data-theme", theme);
+          armClippy(theme);
+
+          Array.prototype.forEach.call(themeOpts, function (opt) {
+            opt.setAttribute(
+              "aria-pressed",
+              opt.getAttribute("data-theme-opt") === theme ? "true" : "false"
+            );
+          });
+          if (!fromUser) return;
+
+          try {
+            localStorage.setItem("theme", theme);
+          } catch (e) {}
+
+          if (window.history && history.replaceState) {
+            var url = new URL(window.location.href);
+            if (theme === "modernist") url.searchParams.delete("theme");
+            else url.searchParams.set("theme", theme);
+            history.replaceState(null, "", url.toString());
+          }
+        }
+
+        function setMenu(open, focusTo) {
+          themeMenu.hidden = !open;
+          themeBtn.setAttribute("aria-expanded", open ? "true" : "false");
+          if (focusTo) focusTo.focus();
+        }
+
+        applyTheme(root.getAttribute("data-theme"), false);
+
+        if (pick) {
+          themeBtn.addEventListener("click", function () {
+            var open = themeMenu.hidden;
+            setMenu(open, open ? themeMenu.querySelector('[aria-pressed="true"]') : null);
+          });
+          Array.prototype.forEach.call(themeOpts, function (opt) {
+            opt.addEventListener("click", function () {
+              applyTheme(opt.getAttribute("data-theme-opt"), true);
+              setMenu(false, themeBtn);
+            });
+          });
+          pick.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && !themeMenu.hidden) setMenu(false, themeBtn);
+          });
+          /* Close when a click or Tab lands anywhere outside the picker. */
+          document.addEventListener("click", function (e) {
+            if (!themeMenu.hidden && !pick.contains(e.target)) setMenu(false);
+          });
+          pick.addEventListener("focusout", function (e) {
+            if (e.relatedTarget && !pick.contains(e.relatedTarget)) setMenu(false);
+          });
+        }
+
+        /* The footer links switch theme in place and go back to the top,
+           so the new look starts from its first screen. */
+        Array.prototype.forEach.call(document.querySelectorAll("[data-theme-go]"), function (link) {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            applyTheme(link.getAttribute("data-theme-go"), true);
+            window.scrollTo(0, 0);
+          });
+        });
       })();
     </script>
   </body>
